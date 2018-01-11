@@ -20,6 +20,7 @@ require(path.join(__dirname, 'config', 'env.js'))(express, app);
 
 // Load routes
 require(path.join(__dirname, 'routes'))(app, nus);
+require(path.join(__dirname, 'routes', 'handler'))(app, nus);
 
 // Start HTTP server
 app.listen(opts.port, function () {
