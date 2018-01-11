@@ -12,7 +12,7 @@ process.addListener('uncaughtException', function (err, stack) {
 
 // Common options
 app.set('__dirname', __dirname);
-app.set('opts', opts);
+app.set('nus-opts', opts);
 app.set('x-powered-by', false);
 
 // Load express configuration

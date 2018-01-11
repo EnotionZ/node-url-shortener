@@ -1,18 +1,22 @@
 module.exports = function (app, nus) {
-  var opts = app.get('opts')
+  var opts = app.get('nus-opts')
     , http = require('http')
     , api = require('./api.js')(app, nus);
 
+  var ns = app.get('nus-namespace');
+  opts.namespace = ns = !!ns ? '/' + ns : '';
+
   // api routes
-  app.use('/api/v1', api);
+  app.use(ns + '/api/v1', api);
 
   // index route
-  app.route('/').all(function (req, res) {
-    res.render('index');
+  app.route(ns + '/').all(function (req, res) {
+    res.render('index', {namespace: ns});
   });
 
   // shorten route
-  app.get(/^\/([\w=]+)$/, function (req, res, next){
+  var shortenedRoute = new RegExp('^' + ns + '\/([\\w=]+)$');
+  app.get(shortenedRoute, function (req, res, next){
     nus.expand(req.params[0], function (err, reply) {
       if (err) {
         next();

@@ -1,5 +1,5 @@
 module.exports = function (app, nus) {
-  var opts = app.get('opts')
+  var opts = app.get('nus-opts')
     , http = require('http')
     , router = require('express').Router();
 
@@ -9,7 +9,7 @@ module.exports = function (app, nus) {
         if (err) {
           jsonResponse(res, err);
         } else if (reply) {
-          reply.short_url = opts.url.replace(/\/$/, '') + '/' + reply.hash;
+          reply.short_url = opts.url.replace(/\/$/, '') + opts.namespace + '/' + reply.hash;
           jsonResponse(res, 200, reply);
         } else {
           jsonResponse(res, 500);
@@ -45,10 +45,10 @@ module.exports = function (app, nus) {
 
   function jsonResponse (res, code, data) {
     data = data || {};
-    data.status_code = (http.STATUS_CODES[code]) ? code : 503,
-    data.status_txt = http.STATUS_CODES[code] || http.STATUS_CODES[503]
+    data.status_code = (http.STATUS_CODES[code]) ? code : 503;
+    data.status_txt = http.STATUS_CODES[code] || http.STATUS_CODES[503];
 
-    res.status(data.status_code).json(data)
+    res.status(data.status_code).json(data);
   }
 
   return router;

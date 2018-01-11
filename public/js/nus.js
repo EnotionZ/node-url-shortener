@@ -1,6 +1,6 @@
 (function ($) {
   var _nus = function (data) {
-    this._api_ = '/api/v1/shorten/';
+    this._api_ = window.namespace + '/api/v1/shorten/';
     this._form_ = '#nus';
     this._errormsg_ = 'An error occurred shortening that link';
   };
