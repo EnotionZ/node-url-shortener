@@ -19,7 +19,7 @@ module.exports = function (app, nus, opts) {
             if (err) {
                 next();
             } else {
-                res.redirect(301, reply.long_url);
+                res.redirect(reply.long_url);
             }
         }, true);
     });
