@@ -1,6 +1,7 @@
 module.exports = function (app, nus, opts) {
     var api = require('./api.js')(app, nus, opts);
-    var ns = app.get('nus-namespace');
+
+    var ns = opts.namespace;
     opts.namespace = ns = !!ns ? '/' + ns : '';
 
     // api routes

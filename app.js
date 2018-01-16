@@ -12,7 +12,14 @@ process.addListener('uncaughtException', function (err, stack) {
 // app.set('nus-namespace', 'r');
 app.set('x-powered-by', false);
 
-require('./index')(app);
+require('./index')(app, {
+    'namespace': '',
+    'url': 'http://localhost:3000',
+    'redis-host': 'localhost',
+    'redis-port': 6379,
+    'redis-pass': false,
+    'redis-db': 0
+});
 require('./routes/handler')(app);
 
 // Start HTTP server

@@ -36,7 +36,8 @@
     $.post(self._api_, { long_url: url, alias: alias }, function (data) {
       if (data.hasOwnProperty('status_code') && data.hasOwnProperty('status_txt')) {
         if (parseInt(data.status_code) === 200) {
-          self.$urlInput.val(data.short_url).select();
+          var shortUrl = window.location.origin + window.namespace + '/' + data.hash;
+          self.$urlInput.val(shortUrl).select();
           return self.alert('Copy your shortened url');
         } else {
           self._errormsg_ = data.status_txt;
