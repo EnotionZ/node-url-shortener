@@ -1,18 +1,18 @@
-var path = require('path')
-  , opts = require(path.join(__dirname, 'config', 'opts.js'))
-  , nus = require(path.join(__dirname, 'lib', 'nus.js'))(opts);
+var opts = require('./config/opts');
+var nus = require('./lib.nus')(opts);
 
 
 // express app
 module.exports = function(express, app) {
+    // Common options
     app.set('nus-opts', opts);
     app.set('__dirname', __dirname);
     app.set('x-powered-by', false);
 
     // Load express configuration
-    require(path.join(__dirname, 'config', 'env.js'))(express, app);
+    require('./config/env')(express, app);
 
     // Load routes
-    require(path.join(__dirname, 'routes'))(app, nus);
+    require('./routes')(app, nus);
 };
 
