@@ -9,7 +9,7 @@ module.exports = function ( app, opts) {
 
   // View engine setup
   app.set('view engine', 'ejs');
-  app.set('views', 'views');
+  app.set('views', path.join(opts['__dirname'], 'views'));
 
   // Middleware
   app.use(cors());
