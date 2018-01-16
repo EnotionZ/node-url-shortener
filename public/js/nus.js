@@ -6,13 +6,14 @@
   };
 
   _nus.prototype.init = function () {
-    this._input_ = $(this._form_).find('input');
+    this.$urlInput = $(this._form_).find('#link');
+    this.$aliasInput = $(this._form_).find('#nus-alias');
 
-    if (!this.check(this._input_.val())) {
+    if (!this.check(this.$urlInput.val())) {
       return this.alert(this._errormsg_, true);
     }
 
-    this.request(this._input_.val());
+    this.request(this.$urlInput.val(), this.$aliasInput.val());
   };
 
   _nus.prototype.check = function (s) {
@@ -30,12 +31,12 @@
       + '</div>').insertBefore(this._form_);
   };
 
-  _nus.prototype.request = function (url) {
+  _nus.prototype.request = function (url, alias) {
     var self = this;
-    $.post(self._api_, { long_url: url }, function (data) {
+    $.post(self._api_, { long_url: url, alias: alias }, function (data) {
       if (data.hasOwnProperty('status_code') && data.hasOwnProperty('status_txt')) {
-        if (parseInt(data.status_code) == 200) {
-          self._input_.val(data.short_url).select();
+        if (parseInt(data.status_code) === 200) {
+          self.$urlInput.val(data.short_url).select();
           return self.alert('Copy your shortened url');
         } else {
           self._errormsg_ = data.status_txt;

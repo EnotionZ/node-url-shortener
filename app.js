@@ -1,8 +1,7 @@
 var express = require('express')
   , app = express()
-  , path = require('path')
-  , opts = require(path.join(__dirname, 'config', 'opts.js'))
-  , nus = require(path.join(__dirname, 'lib', 'nus.js'))(opts);
+  , opts = require('./config/opts');
+
 
 // Gotta Catch 'Em All
 process.addListener('uncaughtException', function (err, stack) {
@@ -10,17 +9,11 @@ process.addListener('uncaughtException', function (err, stack) {
   console.log('\u0007'); // Terminal bell
 });
 
-// Common options
-app.set('__dirname', __dirname);
-app.set('nus-opts', opts);
+// app.set('nus-namespace', 'r');
 app.set('x-powered-by', false);
 
-// Load express configuration
-require(path.join(__dirname, 'config', 'env.js'))(express, app);
-
-// Load routes
-require(path.join(__dirname, 'routes'))(app, nus);
-require(path.join(__dirname, 'routes', 'handler'))(app, nus);
+require('./index')(app);
+require('./routes/handler')(app);
 
 // Start HTTP server
 app.listen(opts.port, function () {

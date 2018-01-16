@@ -1,5 +1,5 @@
 var http = require('http');
-module.exports = function (app, nus) {
+module.exports = function (app) {
 
   // catch 404 and forwarding to error handler
   app.use(function(req, res, next) {
