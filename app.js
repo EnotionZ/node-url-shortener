@@ -18,7 +18,8 @@ require('./index')(app, {
     'redis-host': 'localhost',
     'redis-port': 6379,
     'redis-pass': false,
-    'redis-db': 0
+    'redis-db': 0,
+    'check-same-host': true
 });
 require('./routes/handler')(app);
 
